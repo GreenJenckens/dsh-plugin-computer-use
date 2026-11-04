@@ -1,0 +1,21 @@
+# generated plugin build manifest (recreated by build/prepack/install)
+plugin/dsh-plugin-computer-use/build.json
+
+# local test/CI artifacts
+test-results/
+*.tgz
+*.log
+
+# dependencies and local secrets
+node_modules/
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+
+# install backups and editor/OS noise
+*.bak_*
+Thumbs.db
+desktop.ini
+.DS_Store

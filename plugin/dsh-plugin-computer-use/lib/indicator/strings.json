@@ -1,0 +1,17 @@
+{
+  "title": "DeepSeek Harness использует ПК",
+  "subtitle": "Ctrl+Alt+Shift+Q — отменить управление",
+  "paused": "Управление приостановлено",
+  "resume": "Ctrl+Alt+Shift+Q — продолжить",
+  "waiting": "Ожидает подтверждения",
+  "confirmTitle": "DeepSeek Harness — подтверждение",
+  "confirmAction": "Действие: {0}",
+  "confirmClick": "Клик: {0}",
+  "confirmPasswordWrite": "Запись в поле-пароль",
+  "confirmPasswordType": "Ввод в поле-пароль",
+  "confirmTerminal": "Ввод в терминал/интерпретатор",
+  "confirmDetail": "Оно может изменить данные или выполнить операцию. Разрешить?",
+  "allow": "Разрешить",
+  "deny": "Запретить",
+  "timeout": "Автоматический отказ через {0} с; Esc — запретить"
+}

@@ -1,0 +1,21 @@
+# Computer-use plugin row. The host half registers native tools that drive the
+# local Windows desktop through a persistent PowerShell bridge; no other row in
+# the profile changes and no skill body is loaded into the model context.
+- insert:
+    - id: computer-use
+      name: 'dsh-plugin-computer-use'
+      config:
+        timeoutMs: 60000
+        subagents: deny
+        confirm: consequential
+        indicator: true
+        confirmKeywords:
+          - оплат
+          - оплатить
+          - купить
+          - оформить
+          - заказать
+          - удалить
+          - отправить
+          - перевести
+          - подтвердить

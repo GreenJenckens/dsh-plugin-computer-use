@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-11-04T04:09:40.907Z",
+  "runId": "matrix_2328_1793765380907_r8do",
+  "environment": {
+    "os": "Windows 11 Pro",
+    "node": "v26.13.0",
+    "platform": "win32",
+    "edge": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "monitors": "see windows-dpi"
+  },
+  "schema": {
+    "bytesCompact": 2804,
+    "actions": 40,
+    "params": 46
+  },
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "steps": 36,
+    "tokensEstimate": 3425
+  },
+  "scenarios": [
+    {
+      "id": "windows-dpi",
+      "pass": true,
+      "error": "",
+      "detail": {
+        "monitor": "monitor=0 1920x1080 at 0,0 dpi=96 100% primary",
+        "geometry": "0,0,1920,1032"
+      },
+      "steps": 2,
+      "tokensEstimate": 203,
+      "latencyMs": 864
+    },
+    {
+      "id": "calc-7x8",
+      "pass": true,
+      "error": "",
+      "detail": {
+        "result": "56"
+      },
+      "steps": 9,
+      "tokensEstimate": 451,
+      "latencyMs": 2880
+    },
+    {
+      "id": "edge-password",
+      "pass": true,
+      "error": "",
+      "detail": {
+        "leak": 0
+      },
+      "steps": 7,
+      "tokensEstimate": 934,
+      "latencyMs": 2464
+    },
+    {
+      "id": "confirm-password",
+      "pass": true,
+      "error": "",
+      "detail": {
+        "denied": true
+      },
+      "steps": 6,
+      "tokensEstimate": 613,
+      "latencyMs": 985
+    },
+    {
+      "id": "act-sequence",
+      "pass": true,
+      "error": "",
+      "detail": {
+        "steps": 2
+      },
+      "steps": 1,
+      "tokensEstimate": 66,
+      "latencyMs": 57
+    },
+    {
+      "id": "windows-move",
+      "pass": true,
+      "error": "",
+      "detail": {
+        "requested": [
+          -100,
+          -50
+        ],
+        "frame": [
+          -93,
+          -50
+        ]
+      },
+      "steps": 6,
+      "tokensEstimate": 582,
+      "latencyMs": 596
+    },
+    {
+      "id": "ocr-digits",
+      "pass": true,
+      "error": "",
+      "detail": {
+        "digits": true
+      },
+      "steps": 5,
+      "tokensEstimate": 576,
+      "latencyMs": 933
+    }
+  ]
+}

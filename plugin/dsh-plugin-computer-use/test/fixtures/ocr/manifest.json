@@ -1,0 +1,314 @@
+[
+    {
+        "id":  "ocr-01",
+        "file":  "ocr-01-SegoeUI-9pt-light.png",
+        "font":  "Segoe UI",
+        "sizePt":  9,
+        "theme":  "light",
+        "width":  900,
+        "height":  92,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Итого: 1 234,56 руб. Заказ 0123456789"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Order 45-11: total 1,234.56 USD"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0123456789 0O1Il5S 00 0O O0 1I l1 5S 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-02",
+        "file":  "ocr-02-SegoeUI-11pt-light.png",
+        "font":  "Segoe UI",
+        "sizePt":  11,
+        "theme":  "light",
+        "width":  900,
+        "height":  104,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Счёт № 45-11: оплата 98 765,43 руб. НДС 20%"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Invoice 45-11: paid 98,765.43 USD on 2026-11-14"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0O1Il5S 0123456789 10 100 1000 10.55 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-03",
+        "file":  "ocr-03-SegoeUI-14pt-light.png",
+        "font":  "Segoe UI",
+        "sizePt":  14,
+        "theme":  "light",
+        "width":  900,
+        "height":  119,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Артикул 5 шт., ячейка 10:55, вес 1,05 кг"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Build 1055: 0 errors, 0 warnings, 5 files"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "00 0O O0 1I l1 5S S5 0123456789 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-04",
+        "file":  "ocr-04-SegoeUI-18pt-light.png",
+        "font":  "Segoe UI",
+        "sizePt":  18,
+        "theme":  "light",
+        "width":  900,
+        "height":  140,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Товар 5 шт. x 1 055,00 = 5 275,00 руб."
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Serial 5S-42: verify code 10:55"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0123456789 0O1Il5S 00/0O 1I/l1 5S/S5 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-05",
+        "file":  "ocr-05-Consolas-9pt-light.png",
+        "font":  "Consolas",
+        "sizePt":  9,
+        "theme":  "light",
+        "width":  900,
+        "height":  89,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Счёт № 45-11: оплата 98 765,43 руб. НДС 20%"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Invoice 45-11: paid 98,765.43 USD on 2026-11-14"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0O1Il5S 0123456789 10 100 1000 10.55 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-06",
+        "file":  "ocr-06-Consolas-11pt-light.png",
+        "font":  "Consolas",
+        "sizePt":  11,
+        "theme":  "light",
+        "width":  900,
+        "height":  98,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Артикул 5 шт., ячейка 10:55, вес 1,05 кг"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Build 1055: 0 errors, 0 warnings, 5 files"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "00 0O O0 1I l1 5S S5 0123456789 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-07",
+        "file":  "ocr-07-Consolas-14pt-light.png",
+        "font":  "Consolas",
+        "sizePt":  14,
+        "theme":  "light",
+        "width":  900,
+        "height":  110,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Товар 5 шт. x 1 055,00 = 5 275,00 руб."
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Serial 5S-42: verify code 10:55"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0123456789 0O1Il5S 00/0O 1I/l1 5S/S5 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-08",
+        "file":  "ocr-08-Consolas-18pt-light.png",
+        "font":  "Consolas",
+        "sizePt":  18,
+        "theme":  "light",
+        "width":  900,
+        "height":  131,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Итого: 1 234,56 руб. Заказ 0123456789"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Order 45-11: total 1,234.56 USD"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0123456789 0O1Il5S 00 0O O0 1I l1 5S 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-09",
+        "file":  "ocr-09-SegoeUI-9pt-dark.png",
+        "font":  "Segoe UI",
+        "sizePt":  9,
+        "theme":  "dark",
+        "width":  900,
+        "height":  92,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Артикул 5 шт., ячейка 10:55, вес 1,05 кг"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Build 1055: 0 errors, 0 warnings, 5 files"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "00 0O O0 1I l1 5S S5 0123456789 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-10",
+        "file":  "ocr-10-SegoeUI-14pt-dark.png",
+        "font":  "Segoe UI",
+        "sizePt":  14,
+        "theme":  "dark",
+        "width":  900,
+        "height":  119,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Товар 5 шт. x 1 055,00 = 5 275,00 руб."
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Serial 5S-42: verify code 10:55"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0123456789 0O1Il5S 00/0O 1I/l1 5S/S5 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-11",
+        "file":  "ocr-11-Consolas-9pt-dark.png",
+        "font":  "Consolas",
+        "sizePt":  9,
+        "theme":  "dark",
+        "width":  900,
+        "height":  89,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Итого: 1 234,56 руб. Заказ 0123456789"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Order 45-11: total 1,234.56 USD"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0123456789 0O1Il5S 00 0O O0 1I l1 5S 1055"
+                      }
+                  ]
+    },
+    {
+        "id":  "ocr-12",
+        "file":  "ocr-12-Consolas-14pt-dark.png",
+        "font":  "Consolas",
+        "sizePt":  14,
+        "theme":  "dark",
+        "width":  900,
+        "height":  110,
+        "lines":  [
+                      {
+                          "lang":  "ru",
+                          "role":  "ru-prose",
+                          "text":  "Счёт № 45-11: оплата 98 765,43 руб. НДС 20%"
+                      },
+                      {
+                          "lang":  "en",
+                          "role":  "en-prose",
+                          "text":  "Invoice 45-11: paid 98,765.43 USD on 2026-11-14"
+                      },
+                      {
+                          "lang":  "code",
+                          "role":  "code",
+                          "text":  "0O1Il5S 0123456789 10 100 1000 10.55 1055"
+                      }
+                  ]
+    }
+]

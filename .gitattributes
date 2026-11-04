@@ -1,0 +1,8 @@
+# Keep working-tree bytes identical on Windows checkouts: the release hash is
+# computed from these exact bytes. Without this, core.autocrlf=true rewrites LF
+# to CRLF and buildHash changes on a fresh clone.
+* -text
+*.png binary
+*.ico binary
+*.jpg binary
+*.zip binary

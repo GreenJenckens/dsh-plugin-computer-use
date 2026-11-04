@@ -1,0 +1,49 @@
+{
+  "name": "dsh-plugin-computer-use",
+  "version": "0.4.2",
+  "description": "Native Windows desktop control for DeepSeek Harness: windows, UI Automation, input, screenshots, OCR and app launch through one compact tool.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
+    "test:unit": "node --test test/plugin.test.mjs test/parity.test.mjs test/subagent.test.mjs test/marker.test.mjs test/titles.test.mjs",
+    "test:gui": "node --test --test-concurrency=1 test/bridge.test.mjs test/security.test.mjs test/chromium.test.mjs test/confirm.test.mjs test/ocr.test.mjs test/retention.test.mjs test/prune.test.mjs test/sequence.test.mjs",
+    "smoke": "node ../smoke.mjs .",
+    "build:json": "node ../../scripts/make-build-json.mjs",
+    "prepack": "node ../../scripts/make-build-json.mjs",
+    "pack:check": "node ../../scripts/pack-check.mjs",
+    "ocr:eval": "node ../../scripts/ocr-eval.mjs",
+    "matrix": "node ../../scripts/matrix.mjs"
+  },
+  "files": [
+    "lib",
+    "build.json",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "computer-use",
+    "ui-automation",
+    "windows",
+    "agent"
+  ],
+  "engines": {
+    "node": ">=22",
+    "dsh": "^0.2.1-rc.5"
+  },
+  "license": "MIT"
+}

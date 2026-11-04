@@ -1,0 +1,592 @@
+{
+  "generatedAt": "2026-11-04T02:17:29.106Z",
+  "dataset": {
+    "images": 12,
+    "linesPerImage": 3,
+    "manifest": "plugin\\dsh-plugin-computer-use\\test\\fixtures\\ocr\\manifest.json"
+  },
+  "configs": {
+    "scale1-ru": {
+      "scale": 1,
+      "lang": "ru",
+      "images": 12,
+      "failures": 0,
+      "exact": 0,
+      "cerMicro": 0.1979,
+      "werMicro": 0.5318,
+      "zeroToD": 4,
+      "exactRate": 0,
+      "rows": [
+        {
+          "image": "ocr-01",
+          "cer": 0.2252,
+          "exact": false,
+          "zeroToD": 4,
+          "text": "итого: 1 234,56 руб. заказ 0123456789 Order45-11: 1,23456 USD 0123456789 D01115SDD DOOD П 5S 1055"
+        },
+        {
+          "image": "ocr-02",
+          "cer": 0.1128,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "счет 45-11: оплата 98 765,43 руб. НДС lnvoice 45-11: paid 98,76543 USD оп 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        },
+        {
+          "image": "ocr-03",
+          "cer": 0.0924,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул 5 шт., ячейка 10:55, вес 1,05 кг Build 1055: О errors, О warnings, 5 files оо оо оо 11 5S S5 0123456789 1055"
+        },
+        {
+          "image": "ocr-04",
+          "cer": 0.0893,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "товар 5 шт. х 1 055,OO = 5 275,00 руб. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-05",
+          "cer": 0.3534,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "счёт 45-11: оплате 98 765,43 руб. НДС 20; Ir-,voice 45-11: 98, оп 2326-11-14 z0111ss 3123456789 1зв 1езв 13.55"
+        },
+        {
+          "image": "ocr-06",
+          "cer": 0.1849,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул S шт., ячейка 12:55, вес 1,В5 кг Bui1d 1255: е errocs, е wapnings, 5 fi1es аа ао ое 11 11 5s s5 @123456789 1255"
+        },
+        {
+          "image": "ocr-07",
+          "cer": 0.4196,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "5 275,аа руб. товар 5 шт. х 1 655,еа Seria1 5S-42: verify code 19:55 6123456789 601115s ауао 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-08",
+          "cer": 0.2523,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "итого: 1 234,56 руб. заказ 2123456789 ordep 45-11: tota1 1,234.56 USD 2123456789 a0111ss аа ао оа 11 11 ss"
+        },
+        {
+          "image": "ocr-09",
+          "cer": 0.1176,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул 5 шт., ячейка 10:55, зес 1,05 кг 8uild 1055: О errors, О warnings, 5 files оо 0000 Н Л 5SS5 0123456789 1055"
+        },
+        {
+          "image": "ocr-10",
+          "cer": 0.0893,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "товар 5 шт. х 1 055,ОО = 5 275,00 руб. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-11",
+          "cer": 0.2523,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "итого: 1 234,56 руб. заказ 3123456789 омег 45-11: tota1 1, 234.56 USD 9123456789 a01115s ав ао ое 11 11 ss 1+5"
+        },
+        {
+          "image": "ocr-12",
+          "cer": 0.188,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "счёт 45-11: оплата 98 765,43 руб. НДС Invoice 45-11: paid 98, 765.43 USD оп 2626-11-14 601115s 0123456789 10 1ааа 19.55 1655"
+        }
+      ]
+    },
+    "scale1-en-US": {
+      "scale": 1,
+      "lang": "en-US",
+      "images": 12,
+      "failures": 0,
+      "exact": 0,
+      "cerMicro": 0.2709,
+      "werMicro": 0.5169,
+      "zeroToD": 0,
+      "exactRate": 0,
+      "rows": [
+        {
+          "image": "ocr-01",
+          "cer": 0.2432,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "',1Toro: 1 234,56 py6. saes 0123456789 Order45-11: total 1,234.56 USD 0123456789 001115S00 0000 II II SS 1055"
+        },
+        {
+          "image": "ocr-02",
+          "cer": 0.1955,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "CLiéT 45-11: onnaTa 98 765,43 py6. Invoice 45-11: paid 98,765.43 USD on 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        },
+        {
+          "image": "ocr-03",
+          "cer": 0.2689,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "ApTMKYJ1 5 WT., nueVlKa 10:55, Bec 1,05 Kr Build 1055: O errors, O warnings, 5 files OO OO OO II II 5S Ss 0123456789 1055"
+        },
+        {
+          "image": "ocr-04",
+          "cer": 0.1607,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Toaap 5 UT. x 1 055,OO = 5 275,00 py6. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-05",
+          "cer": 0.3383,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "45-11: onnara 98 765,43 py6. Invoice 45-11: paid 98, 765.43 USO on 2326-11-14 øolllss 3123456789 10 lac leac 10.55 lass"
+        },
+        {
+          "image": "ocr-06",
+          "cer": 0.3361,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "ApTHKyn S WT., RHe7Ka 10:55, Bec 1,Ø5 Kr Build 1055: e errors, e warnings, S files eo eo oe 11 11 5s ss 0123456789 less"
+        },
+        {
+          "image": "ocr-07",
+          "cer": 0.3482,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "5 275,00 py6. T0Bap 5 WT. x 1 055,eo Serial 5S-42: verify code 10:55 0123456789 001115s 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-08",
+          "cer": 0.2523,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "VITOro: 1 234,56 py6. 3aG3 0123456789 order 45-11: total 1,234.56 USD 0123456789 001115 ee eo oe 11 11 5s 1055"
+        },
+        {
+          "image": "ocr-09",
+          "cer": 0.4958,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "APThKyn 5 WT., ggeÄKa 10:55, aec 1,05 Kr Build 1055: O errors, O warnings, 5 files"
+        },
+        {
+          "image": "ocr-10",
+          "cer": 0.1607,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "T0Bap 5 WT. x 1 055,OO = 5 275,00 py6. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-11",
+          "cer": 0.2613,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "\"Toro: 1 234,56 py6. 3axa3 0123456789 order 45-11: total 1,234.56 USD e123456789 001115s øø eo oe 11 11 5s 1ø55"
+        },
+        {
+          "image": "ocr-12",
+          "cer": 0.188,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "CuäT 45-11: onnaTa 98 765,43 py6. HAC Invoice 45-11: paid 98,765.43 USD on 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        }
+      ]
+    },
+    "scale2-ru": {
+      "scale": 2,
+      "lang": "ru",
+      "images": 12,
+      "failures": 0,
+      "exact": 0,
+      "cerMicro": 0.16,
+      "werMicro": 0.4494,
+      "zeroToD": 0,
+      "exactRate": 0,
+      "rows": [
+        {
+          "image": "ocr-01",
+          "cer": 0.1171,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "итого: 1 234,56 руб. Заказ 0123456789 0rder45-11: totaI 1,234.56 USD 0123456789 001115S00 0000 11 11 5S 1055"
+        },
+        {
+          "image": "ocr-02",
+          "cer": 0.0752,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "счёт NQ 45-11: оплата 98 765,43 руб. НДС 2096 Invoice 45-11: paid 98,765.43 USD оп 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        },
+        {
+          "image": "ocr-03",
+          "cer": 0.0924,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул 5 шт., ячейка 10:55, вес 1,05 кг Bui1d 1055: О errors, О warnings, 5 files оо оо оо 11 11 5S S5 0123456789 1055"
+        },
+        {
+          "image": "ocr-04",
+          "cer": 0.0804,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "товар 5 шт. х 1 055100 = 5 275,00 руб. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-05",
+          "cer": 0.2256,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Счёт 45-11: оплата 98 765,43 руб. НДС Invoice 45-11: paid 98,765.43 USO оп 2Г2Б-п-14 301115s е123456789 1а аге аеее ае.55 055"
+        },
+        {
+          "image": "ocr-06",
+          "cer": 0.1933,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул 5 шт., ячейка 10:55, вес 1 , е; кг Bui1d 055: е eppors, е wapnings, 5 fi1es ае ао ое 11 11 5s s5 @123456789 1055"
+        },
+        {
+          "image": "ocr-07",
+          "cer": 0.3571,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "= Б 275,00 руб. Товар 5 шт. х 1 055,оа Seria1 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-08",
+          "cer": 0.2703,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "итого: 1 234,56 руб. заказ е1234Б6789 Opdep 45-11: tota1 1,234.56 USD а1234Б6789 аа ао оа 11 11 5S"
+        },
+        {
+          "image": "ocr-09",
+          "cer": 0.1261,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул 5 шт., ячейка 10:55, вес 1,05 кг Bui1d 1055: О errors, О wamings, 5 files 00 0000 5SS5 0123456789 1055"
+        },
+        {
+          "image": "ocr-10",
+          "cer": 0.0893,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "товар 5 шт. х 1 055,OO = 5 275,00 руб. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-11",
+          "cer": 0.2162,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "итого: 1 234,56 руб. Заказ е123456789 Огаег 45-11: tota1 1,234.56 USD 9123456789 901115s ев ео оа II 11 5s 1955"
+        },
+        {
+          "image": "ocr-12",
+          "cer": 0.0977,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "счёт 45-11: оплата 98 765,43 руб. НДС Invoice 45-11: paid 98,765.43 USD оп 2026-11-14 001115s 0123456789 10 100 1000 10.55 1055"
+        }
+      ]
+    },
+    "scale2-en-US": {
+      "scale": 2,
+      "lang": "en-US",
+      "images": 12,
+      "failures": 0,
+      "exact": 0,
+      "cerMicro": 0.2365,
+      "werMicro": 0.4494,
+      "zeroToD": 0,
+      "exactRate": 0,
+      "rows": [
+        {
+          "image": "ocr-01",
+          "cer": 0.2523,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "YIToro: 1 234,56 py6.3aKa30123456789 Order 45-11: total 1,234.56 USD 0123456789 001115SOO 0000 II II 5S 1055"
+        },
+        {
+          "image": "ocr-02",
+          "cer": 0.188,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "CUéT NQ 45-11: onnara 98 765,43 py6. HAC Invoice 45-11: paid 98,765.43 USD on 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        },
+        {
+          "image": "ocr-03",
+          "cer": 0.2689,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "ApT1,1KYJ1 5 u.JT., nqeiKa 10:55, Bec 1,05 Kr Build 1055: 0 errors, 0 warnings, 5 files OO OO OO II II 5S S5 0123456789 1055"
+        },
+        {
+          "image": "ocr-04",
+          "cer": 0.1607,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "TOBap 5 WT. x 1 055,OO = 5 275,00 py6. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-05",
+          "cer": 0.2632,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "V 45-11: onnara 98 765,43 pyé. HAC Invoice 45-11: paid 98,765.43 USD on 2026-11-14 001115S 0123456789 10 leee le.55 1055"
+        },
+        {
+          "image": "ocr-06",
+          "cer": 0.2689,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "ApTHKyn 5 WT., RHeiKa 10:55, Bec 1,05 Kr Build 1055: e errors, e warnings, 5 files ee eo 00 11 11 5s ss 0123456789 1055"
+        },
+        {
+          "image": "ocr-07",
+          "cer": 0.3571,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "= 5 275,00 py6. T0Bap 5 UJT. X 1 055,OO Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-08",
+          "cer": 0.2432,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "VIToro: 1 234,56 py6. 3a}G3 0123456789 Order 45-11: total 1,234.56 USD 0123456789 001115s eo eo oe 11 11 5s 1055"
+        },
+        {
+          "image": "ocr-09",
+          "cer": 0.2605,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Apn«yn 5 WT., ggeiKa 10:55, Bec 1,05 Kr Build 1055: O errors, O wamings, 5 files 00 0000 11 II 5SS5 0123456789 1055"
+        },
+        {
+          "image": "ocr-10",
+          "cer": 0.1607,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "TOBap 5 WT. x 1 055,OO = 5 275,00 py6. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-11",
+          "cer": 0.2342,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "\"Toro: 1 234,56 py6. 3axa3 Ø123456789 Order 45-11: total 1,234.56 USD ø123456789 ø01115S ØØ øO Oø 11 11 5S 1ø55"
+        },
+        {
+          "image": "ocr-12",
+          "cer": 0.188,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "CqäT N! 45-11: onnaTa 98 765,43 py6. HAC Invoice 45-11: paid 98,765.43 USD on 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        }
+      ]
+    },
+    "scale3-ru": {
+      "scale": 3,
+      "lang": "ru",
+      "images": 12,
+      "failures": 0,
+      "exact": 0,
+      "cerMicro": 0.1804,
+      "werMicro": 0.4532,
+      "zeroToD": 0,
+      "exactRate": 0,
+      "rows": [
+        {
+          "image": "ocr-01",
+          "cer": 0.1802,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "итого: 1 234,56 руб. заказ 0123456789 Order45-11: totaI 1,234.56 USD 0123456789 00 ОО 11 П 5S 1055"
+        },
+        {
+          "image": "ocr-02",
+          "cer": 0.0752,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "счёт NQ 45-11: оплата 98 765,43 руб. НДС 2096 Invoice 45-11: paid 98,765.43 USD оп 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        },
+        {
+          "image": "ocr-03",
+          "cer": 0.084,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул 5 шт., ячейка 10:55, вес 1,05 кг Build 1055: О errors, О warnings, 5 files оо оо оо 11 11 5S S5 0123456789 1055"
+        },
+        {
+          "image": "ocr-04",
+          "cer": 0.1339,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "товар 5 шт. х 1 = 5 275,00 руб. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-05",
+          "cer": 0.2556,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Счёт 45-11: оплата 98 765,43 руб. НДС Invoice 45-11: paid 98,765.43 оп 2B26-11-14 aoanss епз456789 13 аеа пеа 0.55 055"
+        },
+        {
+          "image": "ocr-06",
+          "cer": 0.2437,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул Б шт., ячейка 10:55, вес 1 , ВБ кг Bui1d 055: е ecpops, е wapnings, Б fi1es аа ао оа 11 11 s5 е1234Б6789 1055"
+        },
+        {
+          "image": "ocr-07",
+          "cer": 0.2768,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Товар Б шт. х 1 = Б 275,00 руб. Seria1 5S-42: verify code 10:55 0123456789 00111ss ав/ао 11/11 ss/ss"
+        },
+        {
+          "image": "ocr-08",
+          "cer": 0.2703,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "итого: 1 234,56 руб. заказ е1234Б6789 Opdep 45-11: tota1 1,234.56 USD а1234Б6789 e0111ss еа ао оа 11 11"
+        },
+        {
+          "image": "ocr-09",
+          "cer": 0.1092,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Артикул 5 шт., ячейка 10:55, вес 1,05 кг BuiId 1055: 0 errors, 0 warnings, 5 fiIes 00 0000 11 п 0123456789 1055"
+        },
+        {
+          "image": "ocr-10",
+          "cer": 0.1339,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "товар 5 шт. х 1 055,OO = 5 275,00 руб. Serial 5S-42: verify code 10:55 0123456789 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-11",
+          "cer": 0.2523,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "итого: 1 234,56 руб. Заказ е123456789 Огаег 45-11: tota1 1,234.56 9123456789 601115s ев ао ое 11 11 5s 1955"
+        },
+        {
+          "image": "ocr-12",
+          "cer": 0.1654,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "счёт 45-11: оплата 98 765,43 руб. НДС Invoice 45-11: paid 98, 765.43 USD оп 2026-11-14 001115S 0123456789 10 10.55 1055"
+        }
+      ]
+    },
+    "scale3-en-US": {
+      "scale": 3,
+      "lang": "en-US",
+      "images": 12,
+      "failures": 0,
+      "exact": 0,
+      "cerMicro": 0.2309,
+      "werMicro": 0.427,
+      "zeroToD": 0,
+      "exactRate": 0,
+      "rows": [
+        {
+          "image": "ocr-01",
+          "cer": 0.2432,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "VIT0ro: 1 234,56 py6. 0123456789 Order45-11: total 1,234.56 USD 0123456789 001115S OO 0000 II II 5S 1055"
+        },
+        {
+          "image": "ocr-02",
+          "cer": 0.188,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "CUéT NQ 45-11: onnaTa 98 765,43 py6. Hac Invoice 45-11: paid 98,765.43 USD on 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        },
+        {
+          "image": "ocr-03",
+          "cer": 0.2773,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "ApTL,1KYJl 5 LIJT., nqeVIKa 10:55, Bec 1,05 Kr Build 1055: 0 errors, 0 warnings, 5 files OO OO OO II II 5S S5 0123456789 1055"
+        },
+        {
+          "image": "ocr-04",
+          "cer": 0.1607,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "TOBap 5 WT. x 1 055,OO = 5 275,00 py6. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-05",
+          "cer": 0.2932,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "cgéT 45-11: onnaTa 98 765,43 py6. HAC Invoice 45-11: paid 98,765.43 USD on 2026-11-14 001115s e123456789 10 leo leeø less 1055"
+        },
+        {
+          "image": "ocr-06",
+          "cer": 0.2773,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "ApTHKyn 5 WT., RHeiKa 10:55, Bec 1,05 Kr Build 1055: e errors, e warnings, 5 files eo oo oo 11 11 5s ss 0123456789 1055"
+        },
+        {
+          "image": "ocr-07",
+          "cer": 0.1607,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "T0Bap 5 WT. x 1 055,OO = 5 275,00 py6. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-08",
+          "cer": 0.2613,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "VIToro•. 1 234,56 py6. 3a}G3 0123456789 Order 45-11: total 1,234.56 USD 0123456789 001115s ee eo oe 11 11 5s 1055"
+        },
+        {
+          "image": "ocr-09",
+          "cer": 0.2941,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "Apn.1Kyn 5 WT., ggeiKa 10:55, Bec 1,05 Kr Build 1055: 0 errors, 0 warnings, 5 files OO 0000 II II 0123456789 1055"
+        },
+        {
+          "image": "ocr-10",
+          "cer": 0.1607,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "TOBap 5 WT. x 1 055,OO = 5 275,00 py6. Serial 5S-42: verify code 10:55 0123456789 001115S 00/00 11/11 5S/S5 1055"
+        },
+        {
+          "image": "ocr-11",
+          "cer": 0.2523,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "\"Toro: 1 234,56 \"6. ø123456789 Order 45-11: total 1,234.56 USD ø123456789 001115s øø øo oø 11 11 5S 1055"
+        },
+        {
+          "image": "ocr-12",
+          "cer": 0.1955,
+          "exact": false,
+          "zeroToD": 0,
+          "text": "CqäT 45-11: onnaTa 98 765,43 py6. Invoice 45-11: paid 98,765.43 USD on 2026-11-14 001115S 0123456789 10 100 1000 10.55 1055"
+        }
+      ]
+    }
+  }
+}
