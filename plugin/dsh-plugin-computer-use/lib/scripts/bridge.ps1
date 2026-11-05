@@ -13,6 +13,7 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 $script:RetentionHours = [Math]::Min(168, [Math]::Max(1, $RetentionHours))
 $script:MaxFiles = [Math]::Min(2000, [Math]::Max(1, $MaxFiles))
+$script:CuRefs = @{}
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 [Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false)
 
@@ -315,6 +316,12 @@ function Await-CuOcr {
 
 function Resolve-CuTarget {
     param($A)
+    $ref = Get-ArgStr $A 'ref' ''
+    if (-not [string]::IsNullOrEmpty($ref)) {
+        $h = Get-CuRefWindow $ref
+        if ($h -le 0 -or -not [CuNative]::IsWindow([IntPtr]$h)) { throw ('stale ref ' + $ref + ': re-run observe.tree and use the new ref') }
+        return [IntPtr]$h
+    }
     $hwnd = [int64](Get-ArgInt $A 'hwnd' 0)
     $title = Get-ArgStr $A 'title'
     $rx = Get-ArgStr $A 'titleRegex'
@@ -369,6 +376,77 @@ function Format-CuName {
     $Name = $Name -replace "[`r`n`t]+", ' '
     if ($Name.Length -gt $Max) { $Name = $Name.Substring(0, $Max) + '...' }
     return $Name
+}
+
+function Get-CuShortHash {
+    param([string]$Text)
+    $sha = [System.Security.Cryptography.SHA1]::Create()
+    try {
+        $bytes = [System.Text.Encoding]::UTF8.GetBytes($Text)
+        $hash = $sha.ComputeHash($bytes)
+        return ([BitConverter]::ToString($hash, 0, 4) -replace '-', '').ToLowerInvariant()
+    } finally { $sha.Dispose() }
+}
+
+function Get-CuLocator {
+    param($Element, [int]$Hwnd, [int]$Nth)
+    $role = Get-CuRole $Element
+    $name = ''
+    $auto = ''
+    try { $name = ([string]$Element.Current.Name) -replace '\|', '/' } catch {}
+    try { $auto = ([string]$Element.Current.AutomationId) -replace '\|', '/' } catch {}
+    return ('hwnd=' + $Hwnd + '|role=' + $role + '|name=' + $name + '|nth=' + $Nth + '|auto=' + $auto)
+}
+
+function Register-CuRef {
+    param([int]$Hwnd, [string]$Locator)
+    $ref = Get-CuShortHash $Locator
+    if (-not $script:CuRefs.ContainsKey([int64]$Hwnd)) { $script:CuRefs[[int64]$Hwnd] = @{} }
+    $script:CuRefs[[int64]$Hwnd][$ref] = $Locator
+    return $ref
+}
+
+function Get-CuRefWindow {
+    param([string]$Ref)
+    foreach ($key in @($script:CuRefs.Keys)) {
+        if ($script:CuRefs[$key].ContainsKey($Ref)) { return [int64]$key }
+    }
+    return 0
+}
+
+function Find-CuRefElement {
+    param([int64]$Hwnd, [string]$Ref)
+    if (-not $script:CuRefs.ContainsKey($Hwnd) -or -not $script:CuRefs[$Hwnd].ContainsKey($Ref)) {
+        throw ('stale ref ' + $Ref + ': no observation for this element; re-run observe.tree')
+    }
+    $locator = [string]$script:CuRefs[$Hwnd][$Ref]
+    $map = @{}
+    foreach ($part in $locator.Split('|')) {
+        $kv = $part.Split('=', 2)
+        if ($kv.Count -eq 2) { $map[$kv[0]] = $kv[1] }
+    }
+    $root = $null
+    try { $root = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$Hwnd) } catch {}
+    if ($null -eq $root) { throw ('stale ref ' + $Ref + ': window is gone') }
+    $walk = Get-CuTree -Root $root -MaxDepth 30 -MaxNodes 4000
+    $counts = @{}
+    $i = 0
+    foreach ($el in $walk.elements) {
+        $role = Get-CuRole $el
+        $name = ''
+        $auto = ''
+        try { $name = ([string]$el.Current.Name) -replace '\|', '/' } catch {}
+        try { $auto = ([string]$el.Current.AutomationId) -replace '\|', '/' } catch {}
+        $key = $role + '|' + $name + '|' + $auto
+        $nth = 0
+        if ($counts.ContainsKey($key)) { $nth = [int]$counts[$key] }
+        $counts[$key] = $nth + 1
+        if ($role -eq $map['role'] -and $name -eq $map['name'] -and $auto -eq $map['auto'] -and [string]$nth -eq [string]$map['nth']) {
+            return @{ el = $el; i = $i }
+        }
+        $i++
+    }
+    throw ('stale ref ' + $Ref + ': element is no longer present (role/name/auto/nth changed); re-run observe.tree')
 }
 
 function Get-CuTree {
@@ -482,12 +560,13 @@ function Get-CuDisplayName {
 }
 
 function Format-CuRow {
-    param($Element, [int]$Index, [switch]$WithPatterns)
+    param($Element, [int]$Index, [switch]$WithPatterns, [string]$Ref = '')
     $cur = $Element.Current
     $role = Get-CuRole $Element
     $name = Get-CuDisplayName $Element 90
     $rect = Get-CuRect $Element
     $sb = New-Object System.Text.StringBuilder
+    if ($Ref) { [void]$sb.Append('ref=' + $Ref + ' ') }
     [void]$sb.Append('i=' + $Index + ' ' + $role)
     if ($name.Length -gt 0) { [void]$sb.Append(' "' + $name + '"') }
     $id = $cur.AutomationId
@@ -561,6 +640,12 @@ function Test-CuMatch {
 
 function Select-CuElements {
     param($Root, $A, [int]$MaxDepth = 12, [switch]$All)
+    $ref = Get-ArgStr $A 'ref' ''
+    if (-not [string]::IsNullOrEmpty($ref)) {
+        $h = Get-CuRefWindow $ref
+        if ($h -le 0) { throw ('stale ref ' + $ref + ': re-run observe.tree and use the new ref') }
+        return @(Find-CuRefElement -Hwnd $h -Ref $ref)
+    }
     $walk = Get-CuTree -Root $Root -MaxDepth $MaxDepth -MaxNodes 4000 -All:$All
     $wantIndex = Get-Arg $A 'index' $null
     if ($null -ne $wantIndex) { $wantIndex = [int]$wantIndex }
@@ -697,15 +782,27 @@ function Invoke-CuOp {
             $lines = @()
             $i = 0
             $shown = 0
+            $counts = @{}
+            $script:CuRefs[[int64]$w] = @{}
             foreach ($el in $walk.elements) {
+                $role = Get-CuRole $el
+                $rawName = ''
+                $auto = ''
+                try { $rawName = ([string]$el.Current.Name) -replace '\|', '/' } catch {}
+                try { $auto = ([string]$el.Current.AutomationId) -replace '\|', '/' } catch {}
+                $key = $role + '|' + $rawName + '|' + $auto
+                $nth = 0
+                if ($counts.ContainsKey($key)) { $nth = [int]$counts[$key] }
+                $counts[$key] = $nth + 1
+                $locator = Get-CuLocator $el ([int64]$w) $nth
+                $ref = Register-CuRef ([int64]$w) $locator
                 if ($hasSelector) {
-                    if ((Test-CuMatch $el $A) -and $shown -lt $maxNodes) { $lines += (Format-CuRow $el $i -WithPatterns:$withPatterns); $shown++ }
+                    if ((Test-CuMatch $el $A) -and $shown -lt $maxNodes) { $lines += (Format-CuRow $el $i -WithPatterns:$withPatterns -Ref $ref); $shown++ }
                 } else {
                     $name = $el.Current.Name
-                    $role = Get-CuRole $el
                     $isStructural = $role -in @('Window', 'Pane', 'Group', 'Document', 'Tab', 'ToolBar', 'MenuBar', 'List', 'Table', 'Tree')
                     if ((-not [string]::IsNullOrWhiteSpace($name)) -or $isStructural) {
-                        $lines += (Format-CuRow $el $i -WithPatterns:$withPatterns)
+                        $lines += (Format-CuRow $el $i -WithPatterns:$withPatterns -Ref $ref)
                         $shown++
                     }
                 }

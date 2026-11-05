@@ -16,6 +16,8 @@ high-privilege capability, not as a security boundary.
 | Clipboard fallback | Off by default. `clipboard=true` compares the buffer before/after and restores it in `finally`; console windows are refused. `input.paste` also restores the previous clipboard in `finally`. |
 | Blind input | `input.*` activates and checks the target window when `hwnd`/`title` is given; `act.click`/`scroll` refuse when the window cannot be foregrounded. |
 | Screenshot path | A caller-supplied screenshot `path` must resolve inside the plugin temp dir; arbitrary file writes outside it are refused. |
+| Stable refs | `observe.tree` refs are re-resolved on a fresh tree at action time; a closed window or changed role/name/autoId/nth fails with `stale ref` instead of clicking whatever now occupies the old coordinates. |
+| CDP browser lane | Disabled unless `cdpPort` is set. `browser.list` is read-only; `browser.eval` runs arbitrary JavaScript in the selected page over a loopback WebSocket. Both are opt-in and are not a sandbox; do not enable the port on an untrusted machine. |
 | Stale capture fence | `screenshot`/`ocr` accept `expectedWindow`; when set, capture is refused if the current foreground hwnd differs, so a stale observation cannot be mistaken for the live screen. |
 | Launch policy | Denies interpreter/shell binaries (`cmd`, `powershell`, `pwsh`, `wscript`, `cscript`, `mshta`, `regsvr32`, `rundll32`, `certutil`, `bitsadmin`, `msiexec`, `wmic`, `schtasks`, `reg`), UNC paths and URL schemes other than `http(s)`/`mailto`. |
 | Ambiguity | A selector matching several elements fails with the candidates; `matchIndex` out of range is an error, not a silent clamp. |

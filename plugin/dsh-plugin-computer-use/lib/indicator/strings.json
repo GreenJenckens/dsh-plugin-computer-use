@@ -3,6 +3,8 @@
   "subtitle": "Ctrl+Alt+Shift+Q — отменить управление",
   "paused": "Управление приостановлено",
   "resume": "Ctrl+Alt+Shift+Q — продолжить",
+  "stop": "Остановить",
+  "resumeAction": "Продолжить",
   "waiting": "Ожидает подтверждения",
   "confirmTitle": "DeepSeek Harness — подтверждение",
   "confirmAction": "Действие: {0}",

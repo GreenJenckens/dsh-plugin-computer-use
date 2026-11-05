@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.6.0
+
+Borrowed from `jing-hy/computer-user` after a code review; kept the one-tool
+surface and schema compact (44 actions / 48 params, 3 224 B).
+
+### Added
+- **Stable element refs.** `observe.tree` now emits `ref=<8 hex>`; pass it to
+  `act.*`/`observe.*` instead of the per-walk `i=`. The ref is re-resolved on a
+  fresh tree every call and fails with `stale ref` when the element or window is
+  gone.
+- `mode: auto | readonly | disabled` (config-only). `readonly` allows only
+  observation (`windows.list/info`, `observe.*`, `screenshot`, `ocr`,
+  `diagnostics`, `browser.list`, cursor/wait); `disabled` rejects everything.
+- `observe.wait`: poll for an hwnd, title substring/regex or element selector,
+  with a 200–60 000 ms timeout; no side effects.
+- `diagnostics`: PowerShell/UIA/OCR/monitor/temp/indicator/mode self-check.
+- `expectedWindow` on `screenshot`/`ocr`: stale-foreground fence.
+- **CDP browser lane** (`browser.list`, `browser.eval`): loopback
+  `http://127.0.0.1:<cdpPort>/json/list` plus `Runtime.evaluate` over the page
+  WebSocket. Requires Edge/Chrome started with `--remote-debugging-port`;
+  `browser.eval` is arbitrary page JS, so it is intentionally opt-in.
+- **New takeover pill** inspired by computer-user: blue gradient rounded panel,
+  white Stop/Continue button, title/subtitle, subtle 3 px edge + 18 px glow and
+  a thin cursor ring with a center dot (no magenta key, no heavy donut).
+
+### Tests
+- 55 tests (modes, diagnostics, wait, refs/stale, CDP list, fence).
+- Timeout-restart test widened to 3 s to avoid a startup flake.
+
 ## 0.5.0
 
 Borrowed from `jing-hy/computer-user` after a code review; kept the one-tool

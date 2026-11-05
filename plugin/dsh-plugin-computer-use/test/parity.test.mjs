@@ -60,12 +60,12 @@ test('schema parameters and the PowerShell dispatcher stay in parity', async () 
   assert.deepEqual(missing, [], `parameters not read by bridge.ps1: ${missing.join(', ')}`)
 })
 
-test('schema stays within the v0.5 budget and keeps the action surface', async () => {
+test('schema stays within the v0.6 budget and keeps the action surface', async () => {
   const mod = await import(pathToFileURL(path.join(pluginDir, 'lib', 'index.js')).href)
   const { ctx, tools } = loadPlugin()
   mod.apply(ctx, {})
   const parameters = tools.get('computer').parameters
   assert.ok(Buffer.byteLength(JSON.stringify(parameters)) <= 4300)
-  assert.equal(Object.keys(parameters.properties).length, 47)
-  assert.equal(parameters.properties.action.description.split('|').length, 42)
+  assert.equal(Object.keys(parameters.properties).length, 48)
+  assert.equal(parameters.properties.action.description.split('|').length, 44)
 })

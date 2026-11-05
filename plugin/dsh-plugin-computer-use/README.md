@@ -6,7 +6,7 @@
 вызов — JSON-строка в хост. Схема тула ≈ 3.1 КБ compact; 42 actions и 47
 параметров.
 
-Версия **0.5.0**. Слои: `lib/index.js` (тул, режимы, гейты, `act.sequence`,
+Версия **0.6.0**. Слои: `lib/index.js` (тул, режимы, гейты, `act.sequence`,
 image-block) → `lib/bridge.js` (тёплый powershell.exe, очередь, abort,
 retention) → `lib/scripts/bridge.ps1` (окна, UIA, ввод, скриншоты, OCR, wait,
 diagnostics, launch) → `lib/scripts/CuCommon.ps1` (DPI, Win32 P/Invoke,
@@ -18,14 +18,33 @@ virtual-desktop mapping, ES_PASSWORD). Индикатор и диалог под
 | Группа | Действия |
 |---|---|
 | окна | `windows.list/info/activate/minimize/maximize/restore/close/move`; `windows.list` отдаёт DWM-frame и `monitor=N WxH at x,y dpi=96 100%` |
-| наблюдение | `observe.tree/info/getvalue/gettext` — компактный текст `i=12 Button "Save" #save 100,200 80x32 [invoke]`; `observe.wait` — ждать hwnd/title/regex/element до 60 с |
+| наблюдение | `observe.tree/info/getvalue/gettext` — компактный текст `ref=ab12cd34 i=12 Button "Save" #save 100,200 80x32 [invoke]`; `observe.wait` — ждать hwnd/title/regex/element до 60 с |
 | действия | `act.invoke/click/doubleclick/rightclick/setvalue/toggle/select/expand/collapse/focus/scroll` |
 | пакет | `act.sequence` — 1–8 действий за один вызов, стоп на первой ошибке, отчёт по шагам |
 | ввод | `input.type/key/hotkey/paste/move/click/doubleclick/rightclick/middleclick/drag/scroll/wait/cursor` |
 | экран | `screenshot` (PNG в результате; `capture: auto/screen/print`, DWM-кроп, детект пустого кадра, `sourceX/sourceY/scale`, `expectedWindow`-забор) |
 | текст с экрана | `ocr` (Windows OCR, ru/en, боксы `[x,y,wxh]`, clamp под лимит 10 000 px, `expectedWindow`) |
 | запуск | `launch` (приложение/файл/URL; стабильный hwnd; deny-list интерпретаторов, UNC, чужих схем) |
+| браузер | `browser.list` / `browser.eval` — CDP через loopback `cdpPort`; список вкладок и JS в странице |
 | диагностика | `diagnostics` — PowerShell/UIA/OCR/мониторы/temp/indicator/mode |
+
+## Стабильные ссылки
+
+`observe.tree` печатает `ref=<8 hex>` для каждого элемента. Передавай `ref` в
+`act.*`/`observe.*` вместо `i=`: ref проверяется на свежем дереве при каждом
+вызове и падает с `stale ref`, если окно закрылось или элемент исчез/переехал.
+`i=` остаётся per-walk и годится только сразу после `observe.tree`.
+
+## CDP-браузер
+
+Опционально: `cdpPort: 9222` в конфиге и Edge/Chrome, запущенный с
+`--remote-debugging-port=9222`.
+
+- `browser.list` — вкладки (id/title/url/ws), только loopback.
+- `browser.eval` — `text` как JS-выражение, `target` — подстрока id/title/url;
+  выполняется в выбранной вкладке через `Runtime.evaluate`.
+- `browser.eval` — произвольный JS в странице; включай осознанно, это не
+  sandbox. `browser.list` разрешён в `readonly`, `browser.eval` — нет.
 
 ## Режимы
 
@@ -33,17 +52,18 @@ virtual-desktop mapping, ES_PASSWORD). Индикатор и диалог под
 
 - `auto` (по умолчанию) — все действия;
 - `readonly` — только наблюдение (`windows.list/info`, `observe.*`, `screenshot`,
-  `ocr`, `diagnostics`, cursor/wait); клики, ввод и запуск отклоняются;
+  `ocr`, `diagnostics`, `browser.list`, cursor/wait); клики, ввод, запуск и
+  `browser.eval` отклоняются;
 - `disabled` — все вызовы отклоняются, включая диагностику.
 
 ## Индикатор и подтверждение
 
-- Пока агент работает с ПК, по краям экрана — синяя/циан «дымка», кольцо вокруг
-  курсора и верхний баннер «DeepSeek Harness использует ПК». Через ~15 с
-  бездействия всё плавно исчезает.
-- **`Ctrl+Alt+Shift+Q`** — пауза/продолжение. В паузе кромка и кольцо красные,
-  баннер «Управление приостановлено», а bridge отклоняет операции до повторного
-  нажатия.
+- Пока агент работает с ПК, сверху — синяя градиентная **пилюля** с белой
+  кнопкой **Остановить/Продолжить**, по краям — тонкая линия + мягкое свечение,
+  вокруг курсора — тонкое кольцо с точкой. Через ~15 с бездействия всё плавно
+  исчезает.
+- В паузе пилюля и кольцо краснеют, кнопка становится **Продолжить**, а bridge
+  отклоняет операции до повторного нажатия.
 - Class-C действия (ввод в терминал/интерпретатор, запись в пароль, кнопки с
   ключевыми словами `оплат/купить/оформить/удалить/отправить/...`, `pay/send/
   delete/...`) показывают диалог **«Разрешить / Запретить»** с таймаутом 30 с;
@@ -100,6 +120,8 @@ CHANGELOG/SECURITY, пишет `build.json` (SHA-256 каждого файла �
 - id: computer-use
   config:
     timeoutMs: 60000
+    mode: auto             # auto | readonly | disabled
+    cdpPort: 9222          # optional; Edge/Chrome --remote-debugging-port=9222
     tempDir: C:\Temp\cu
     markerDir: C:\Temp\cu\markers
     retentionHours: 2

@@ -7,6 +7,7 @@
       config:
         timeoutMs: 60000
         mode: auto
+        # cdpPort: 9222  # optional, start Edge/Chrome with --remote-debugging-port
         subagents: deny
         confirm: consequential
         indicator: true

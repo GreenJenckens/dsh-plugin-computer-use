@@ -2,7 +2,7 @@
 
 Управление рабочим столом Windows для агента DSH: окна, UI Automation, клики и
 ввод, скриншоты, OCR, запуск приложений. Основной вариант — **нативный плагин
-v0.5.0** с одним тулом-диспетчером `computer` и тёплым PowerShell-хостом; рядом
+v0.6.0** с одним тулом-диспетчером `computer` и тёплым PowerShell-хостом; рядом
 лежит исходный **скилл** как fallback и референс.
 
 ## Почему плагин, а не скилл
@@ -10,7 +10,7 @@ v0.5.0** с одним тулом-диспетчером `computer` и тёпл�
 | | Скилл | Плагин |
 |---|---|---|
 | Инструкции | тело `SKILL.md` 9.4 КБ ≈ 2.4k токенов при каждом использовании | нет тела: правила в описании тула |
-| Схема инструмента | — | один тул: **≈3.1 КБ ≈760 токенов** compact (42 actions/47 params) |
+| Схема инструмента | — | один тул: **≈3.2 КБ ≈790 токенов** compact (44 actions/48 params) |
 | Дерево | сырой JSON | компактные строки: 1037 против 3465 символов (×3.3) |
 | Задержка | новый PowerShell на вызов | тёплый хост: tree ~0.2 с, screenshot ~0.3 с, cursor ~0.004 с |
 | Скриншот | путь + `read_image` | PNG в блоке результата; `capture:print` для фоновых окон |
@@ -26,14 +26,14 @@ plugin/dsh-plugin-computer-use/     ← нативный плагин
   lib/scripts/bridge.ps1            окна, UIA, ввод, скриншоты, OCR, запуск, -SelfTest
   lib/scripts/CuCommon.ps1          DPI, Win32 P/Invoke, VIRTUALDESK, ES_PASSWORD
   lib/scripts/collect-attachment-refs.mjs  zstd-aware refs для prune
-  test/                             53 node --test кейса + OCR-датасет 12×3
+  test/                             55 node --test кейса + OCR-датасет 12×3
   README.md, CHANGELOG.md, SECURITY.md
 plugin/smoke.mjs                    E2E с assert (калькулятор 7×8=56)
 scripts/                            prune, make-ocr-fixtures, ocr-eval, ci, build/pack
 install-plugin.ps1                  установка + -Verify (build.json/SHA-256)
 ```
 
-## Что нового в 0.5.0
+## Что нового в 0.6.0
 
 - **Режимы** `auto / readonly / disabled` — только в конфиге; readonly оставляет
   наблюдение, disabled отклоняет всё.
@@ -41,7 +41,13 @@ install-plugin.ps1                  установка + -Verify (build.json/SHA
 - **`diagnostics`** — самопроверка PowerShell/UIA/OCR/мониторов/temp/индикатора.
 - **`expectedWindow`** — забор против устаревшего скриншота: отказ, если
   foreground-hwnd изменился.
-- **53 теста**; новые кейсы на режимы, wait, diagnostics и fence.
+- **Стабильные ref** из `observe.tree` — повторная проверка элемента на каждом
+  действии, `stale ref` вместо клика по случайному месту.
+- **CDP-браузер** — `browser.list` / `browser.eval` через loopback `cdpPort`.
+- **Новый takeover-pill** — синяя градиентная плашка с кнопкой
+  Остановить/Продолжить, тонкая кромка и аккуратное кольцо курсора.
+- **55 тестов**; новые кейсы на режимы, wait, diagnostics, refs/stale,
+  CDP list и fence.
 
 ### Ранее, в 0.4.x
 
@@ -86,13 +92,13 @@ Electron.
 
 | Проверка | Результат |
 |---|---|
-| `npm test` | **53/53 pass** (lifecycle, timeout/abort, security, marker, Chromium, confirm, DPI, retention, prune, OCR, sequence, modes, wait, diagnostics, fence, schema) |
+| `npm test` | **55/55 pass** (lifecycle, timeout/abort, security, marker, Chromium, confirm, DPI, retention, prune, OCR, sequence, modes, wait, diagnostics, refs/stale, CDP, fence, schema) |
 | `npm run smoke` | калькулятор 7×8=56, inline-PNG, своё окно закрыто, 0 хвостов |
-| `npm run matrix` | **7/7 pass**, 36 шагов, ~2.6k tokens (estimate), 9.4 s; `docs/v0.4-matrix.json` |
+| `npm run matrix` | **7/7 pass**, 36 шагов, ~2.7k tokens (estimate), 9.5 s; `docs/v0.4-matrix.json` |
 | `-SelfTest` | **37/37** mapping-кейсов, включая negative origin и 4 layout'а |
 | `npm run pack:check` | **16 файлов**, `build.json` и `LICENSE` в пакете |
-| `-Verify` | **VERIFY OK** `88edcccf19b2… (0.5.0)` |
-| HMR-монтаж | `mounted-4992.json`: `0.5.0` / `88edcccf19b2…` / `electron:true` |
+| `-Verify` | **VERIFY OK** `1c7bc32bf511… (0.6.0)` |
+| HMR-монтаж | `mounted-4992.json`: `0.6.0` / `1c7bc32bf511…` / `electron:true` |
 
 ## Ограничения и остаточные риски
 
@@ -113,6 +119,7 @@ Electron.
 [SECURITY.md](plugin/dsh-plugin-computer-use/SECURITY.md),
 [CHANGELOG](plugin/dsh-plugin-computer-use/CHANGELOG.md),
 [parity map](docs/v0.4-parity.md),
+[v0.6 evidence](docs/v0.6.0-evidence.md),
 [v0.5 evidence](docs/v0.5.0-evidence.md), [v0.4 plan](docs/v0.4-plan.md).
 
 ## Лицензия

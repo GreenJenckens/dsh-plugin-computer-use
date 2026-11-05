@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-computer-use",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Native Windows desktop control for DeepSeek Harness: windows, UI Automation, input, screenshots, OCR and app launch through one compact tool.",
   "type": "module",
   "main": "lib/index.js",

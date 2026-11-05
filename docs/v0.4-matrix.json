@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-05T08:44:59.057Z",
-  "runId": "matrix_31808_1793868299057_jic1",
+  "generatedAt": "2026-11-05T09:10:16.605Z",
+  "runId": "matrix_28612_1793869816605_5l73",
   "environment": {
     "os": "Windows 11 Pro",
     "node": "v26.13.0",
@@ -9,16 +9,16 @@
     "monitors": "see windows-dpi"
   },
   "schema": {
-    "bytesCompact": 3056,
-    "actions": 42,
-    "params": 47
+    "bytesCompact": 3299,
+    "actions": 44,
+    "params": 48
   },
   "summary": {
     "total": 7,
     "passed": 7,
     "failed": 0,
     "steps": 36,
-    "tokensEstimate": 2586
+    "tokensEstimate": 2677
   },
   "scenarios": [
     {
@@ -31,7 +31,7 @@
       },
       "steps": 2,
       "tokensEstimate": 146,
-      "latencyMs": 987
+      "latencyMs": 1267
     },
     {
       "id": "calc-7x8",
@@ -41,8 +41,8 @@
         "result": "56"
       },
       "steps": 9,
-      "tokensEstimate": 337,
-      "latencyMs": 3122
+      "tokensEstimate": 339,
+      "latencyMs": 3044
     },
     {
       "id": "edge-password",
@@ -52,8 +52,8 @@
         "leak": 0
       },
       "steps": 7,
-      "tokensEstimate": 782,
-      "latencyMs": 2442
+      "tokensEstimate": 860,
+      "latencyMs": 2177
     },
     {
       "id": "confirm-password",
@@ -63,7 +63,7 @@
         "denied": true
       },
       "steps": 6,
-      "tokensEstimate": 439,
+      "tokensEstimate": 448,
       "latencyMs": 1009
     },
     {
@@ -75,7 +75,7 @@
       },
       "steps": 1,
       "tokensEstimate": 66,
-      "latencyMs": 57
+      "latencyMs": 76
     },
     {
       "id": "windows-move",
@@ -92,8 +92,8 @@
         ]
       },
       "steps": 6,
-      "tokensEstimate": 411,
-      "latencyMs": 713
+      "tokensEstimate": 413,
+      "latencyMs": 963
     },
     {
       "id": "ocr-digits",
@@ -104,7 +104,7 @@
       },
       "steps": 5,
       "tokensEstimate": 406,
-      "latencyMs": 997
+      "latencyMs": 968
     }
   ]
 }
