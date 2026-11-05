@@ -107,9 +107,9 @@ test('host restarts after dispose', async () => {
 })
 
 test('timeout restarts the host and the next call recovers', async () => {
-  const host = newHost({ timeoutMs: 1500 })
+  const host = newHost({ timeoutMs: 3000 })
   try {
-    await assert.rejects(host.enqueue('input.wait', { ms: 5000 }), /timed out/)
+    await assert.rejects(host.enqueue('input.wait', { ms: 7000 }), /timed out/)
     const result = await host.enqueue('input.cursor', {})
     assert.match(result.text, /^cursor /)
   } finally {

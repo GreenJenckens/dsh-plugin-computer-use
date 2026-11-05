@@ -715,6 +715,57 @@ function Invoke-CuOp {
             if ($walk.truncated) { $header += ' truncated=1 (raise maxNodes or narrow)' }
             return [ordered]@{ ok = $true; text = ($header + "`n" + ($lines -join "`n")); count = $shown }
         }
+        'observe.wait' {
+            $timeout = [Math]::Min(60000, [Math]::Max(200, (Get-ArgInt $A 'waitMs' 15000)))
+            $deadline = (Get-Date).AddMilliseconds($timeout)
+            $started = Get-Date
+            $wantHwnd = [int64](Get-ArgInt $A 'hwnd' 0)
+            $wantTitle = Get-ArgStr $A 'title' ''
+            $wantRegex = Get-ArgStr $A 'titleRegex' ''
+            $hasElement = $false
+            foreach ($k in 'name', 'nameRegex', 'automationId', 'controlType') { if (-not [string]::IsNullOrEmpty((Get-ArgStr $A $k))) { $hasElement = $true } }
+            if (-not $hasElement -and -not $wantTitle -and -not $wantRegex -and $wantHwnd -le 0) {
+                throw 'observe.wait needs hwnd, title, titleRegex or an element selector'
+            }
+            while ((Get-Date) -lt $deadline) {
+                Test-CuCancel
+                $matched = ''
+                if ($wantHwnd -gt 0) {
+                    if ([CuNative]::IsWindow([IntPtr]$wantHwnd)) { $matched = 'hwnd=' + $wantHwnd }
+                } elseif ($wantTitle -or $wantRegex) {
+                    foreach ($w in @(Get-CuWindows -Limit 500)) {
+                        $t = [string]$w.title
+                        if ($wantTitle -and $t.IndexOf($wantTitle, [StringComparison]::OrdinalIgnoreCase) -ge 0) {
+                            $matched = 'hwnd=' + $w.hwnd + ' title="' + (Format-CuName $t 100) + '"'
+                            break
+                        }
+                        if ($wantRegex -and $t -match $wantRegex) {
+                            $matched = 'hwnd=' + $w.hwnd + ' title="' + (Format-CuName $t 100) + '"'
+                            break
+                        }
+                    }
+                }
+                if (-not $matched -and $hasElement) {
+                    $h = $wantHwnd
+                    if ($h -le 0) { $h = [int64][CuNative]::GetForegroundWindow() }
+                    if ($h -gt 0) {
+                        try {
+                            $root = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$h)
+                            $hits = @(Select-CuElements -Root $root -A $A)
+                            if ($hits.Count -gt 0) {
+                                $matched = 'hwnd=' + $h + ' element="' + (Format-CuName ([string]$hits[0].el.Current.Name) 80) + '"'
+                            }
+                        } catch {}
+                    }
+                }
+                if ($matched) {
+                    $elapsed = [int]((Get-Date) - $started).TotalMilliseconds
+                    return [ordered]@{ ok = $true; text = ('waited ' + $elapsed + ' ms; matched ' + $matched) }
+                }
+                Start-Sleep -Milliseconds 250
+            }
+            throw ('observe.wait timed out after ' + $timeout + ' ms; condition was not met')
+        }
         'observe.info' {
             $w = Resolve-CuTarget $A
             $root = [System.Windows.Automation.AutomationElement]::FromHandle($w)
@@ -1035,9 +1086,22 @@ function Invoke-CuInput {
     }
 }
 
+function Assert-CuExpectedWindow {
+    param($A)
+    $expected = [int64](Get-ArgInt $A 'expectedWindow' 0)
+    if ($expected -le 0) { return }
+    $fg = [int64][CuNative]::GetForegroundWindow()
+    if ($fg -ne $expected) {
+        $title = ''
+        try { $title = [CuNative]::GetWindowTitle([IntPtr]$fg) } catch {}
+        throw ('expectedWindow=' + $expected + ' but foreground is hwnd=' + $fg + ' title="' + (Format-CuName $title 100) + '"; re-observe before capturing')
+    }
+}
+
 function Invoke-CuScreenshot {
     param($A)
     Test-CuCancel
+    Assert-CuExpectedWindow $A
     $screens = @(Get-CuScreens)
     $wSel = $false
     foreach ($k in 'hwnd', 'title', 'titleRegex', 'processId') { $v = Get-Arg $A $k $null; if ($null -ne $v -and "$v" -ne '' -and "$v" -ne '0') { $wSel = $true } }
@@ -1110,6 +1174,7 @@ function Invoke-CuScreenshot {
 function Invoke-CuOcr {
     param($A)
     Test-CuCancel
+    Assert-CuExpectedWindow $A
     Initialize-CuOcr
     $screens = @(Get-CuScreens)
     $wSel = $false
@@ -1312,6 +1377,42 @@ function Resolve-CuVk {
     throw "unknown key name '$Name'"
 }
 
+function Invoke-CuDiagnostics {
+    param($A)
+    $ps = $PSVersionTable.PSVersion.ToString()
+    $uia = 'ok'
+    try { [void][System.Windows.Automation.AutomationElement]::RootElement } catch { $uia = 'error: ' + $_.Exception.Message }
+    $ocr = 'not initialized'
+    try {
+        Initialize-CuOcr
+        $langs = @([Windows.Media.Ocr.OcrEngine]::AvailableRecognizerLanguages | ForEach-Object { $_.LanguageTag })
+        if ($langs.Count -eq 0) { $ocr = 'no recognizer languages' } else { $ocr = ($langs -join ',') }
+    } catch { $ocr = 'error: ' + $_.Exception.Message }
+    $monitors = @(Get-CuScreens | ForEach-Object { $_.width.ToString() + 'x' + $_.height.ToString() + '@' + $_.x.ToString() + ',' + $_.y.ToString() + ' dpi=' + $_.dpi.ToString() })
+    $writable = $false
+    try {
+        $probe = Join-Path $TempDir ('.diag-' + $PID + '-' + (Get-Random))
+        [IO.File]::WriteAllText($probe, 'ok')
+        Remove-Item $probe -Force
+        $writable = $true
+    } catch {}
+    $indicatorDir = Join-Path $TempDir 'indicator'
+    $indicator = 'off'
+    if (Test-Path (Join-Path $indicatorDir 'ready')) { $indicator = 'ready' }
+    if (Test-Path (Join-Path $indicatorDir 'cancel')) { $indicator = 'cancelled' }
+    $mode = Get-ArgStr $A '__mode' 'auto'
+    $lines = @(
+        'powershell=' + $ps,
+        'uia=' + $uia,
+        'ocr=' + $ocr,
+        'monitors=' + ($monitors -join '; '),
+        'temp=' + $TempDir + ' writable=' + $writable,
+        'indicator=' + $indicator,
+        'mode=' + $mode
+    )
+    return [ordered]@{ ok = $true; text = ($lines -join "`n"); powershell = $ps; uia = $uia; ocr = $ocr; mode = $mode }
+}
+
 # ---------------------------------------------------------------- main loop ---
 
 function Write-CuResponse {
@@ -1344,9 +1445,10 @@ while ($true) {
         elseif ($op -eq 'screenshot') { $result = Invoke-CuScreenshot -A $argsObj }
         elseif ($op -eq 'ocr') { $result = Invoke-CuOcr -A $argsObj }
         elseif ($op -eq 'launch') { $result = Invoke-CuLaunch -A $argsObj }
+        elseif ($op -eq 'diagnostics') { $result = Invoke-CuDiagnostics -A $argsObj }
         else { throw "unknown op '$op'" }
         if ($null -eq $result) { throw "op '$op' is not implemented" }
-        if ($op -match '^(windows\.|observe\.|act\.|input\.|launch$|screenshot$|ocr$)') {
+        if ($op -match '^(windows\.|observe\.|act\.|input\.|launch$|screenshot$|ocr$|diagnostics$)') {
             $target = [ordered]@{}
             foreach ($k in 'hwnd', 'title', 'titleRegex', 'processId', 'name', 'automationId', 'controlType', 'action', 'target', 'region', 'monitor', 'key', 'hotkey', 'x', 'y', 'delta', 'button', 'capture') {
                 $v = Get-Arg $argsObj $k $null

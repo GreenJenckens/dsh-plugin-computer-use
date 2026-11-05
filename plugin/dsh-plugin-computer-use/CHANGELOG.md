@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.5.0
+
+Borrowed from `jing-hy/computer-user` after a code review; kept the one-tool
+surface and schema compact (42 actions / 47 params, 3 056 B).
+
+### Added
+- `mode: auto | readonly | disabled` (config-only). `readonly` allows only
+  observation (`windows.list/info`, `observe.*`, `screenshot`, `ocr`,
+  `diagnostics`, cursor/wait); `disabled` rejects everything. The model cannot
+  change the mode through tool arguments.
+- `observe.wait`: poll for an hwnd, title substring/regex or element selector,
+  with a 200–60 000 ms timeout; no side effects.
+- `diagnostics`: PowerShell/UIA/OCR/monitor/temp/indicator/mode self-check for
+  support and first-run troubleshooting.
+- `expectedWindow` on `screenshot`/`ocr`: stale-observation fence that refuses
+  when the foreground hwnd changed.
+
+### Tests
+- 53 tests (new `features.test.mjs`: modes, diagnostics, wait, fence).
+- Timeout-restart test widened to 3 s to avoid a startup flake.
+
 ## 0.4.2
 
 ### Fixed

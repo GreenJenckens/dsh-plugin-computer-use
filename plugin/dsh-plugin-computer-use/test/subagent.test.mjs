@@ -86,8 +86,8 @@ test('subagents:"allow" opts a child back in; schema is unchanged', async () => 
       tool.execute({ action: 'windows.list' }, { agent: { session: { header: { delegationDepth: 1 } } } }),
       /cannot start the computer-use host/,
     )
-    assert.equal(Object.keys(tool.parameters.properties).length, 46)
-    assert.equal(tool.parameters.properties.action.description.split('|').length, 40)
+    assert.equal(Object.keys(tool.parameters.properties).length, 47)
+    assert.equal(tool.parameters.properties.action.description.split('|').length, 42)
   } finally {
     await dispose(disposers)
     fs.rmSync(temp, { recursive: true, force: true })

@@ -6,6 +6,7 @@
       name: 'dsh-plugin-computer-use'
       config:
         timeoutMs: 60000
+        mode: auto
         subagents: deny
         confirm: consequential
         indicator: true

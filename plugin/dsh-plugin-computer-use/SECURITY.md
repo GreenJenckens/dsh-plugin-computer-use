@@ -1,4 +1,4 @@
-# Security notes — dsh-plugin-computer-use v0.4
+# Security notes — dsh-plugin-computer-use v0.5
 
 This plugin lets an LLM drive the real Windows desktop: click, type, start
 processes, read UI Automation trees and capture screenshots/OCR. Treat it as a
@@ -8,6 +8,7 @@ high-privilege capability, not as a security boundary.
 
 | Control | Behaviour |
 |---|---|
+| Runtime mode | `mode: "auto" | "readonly" | "disabled"` is config-only and checked before the host is contacted. `readonly` permits only observation (window list/info, `observe.*`, screenshot, OCR, diagnostics, cursor/wait); `disabled` rejects every call. The model cannot change the mode through tool arguments. |
 | Subagent default-deny | `ctx.tools.guard` and the `execute` fallback deny `computer` to sessions with `delegationDepth >= 1` or `origin: "subagent"` before the host is contacted. Denial is fixed text + a `denied.jsonl` record; tool arguments are never logged. Opt-in: `subagents: "allow"`. |
 | Consequential confirmation | By default `input.type/paste/key/hotkey` into a console/interpreter window, writes into `IsPassword` fields, and clicks on keyword-matched buttons (`оплат`, `купить`, `оформить`, `удалить`, `send`, `pay`, ...) ask the human through the overlay dialog. `confirm: "never"` is an explicit full-access opt-in; without the indicator the same actions are denied. |
 | Activity indicator / cancel | A click-through blue/cyan edge glow, cursor ring and top banner show while the tool is active; `Ctrl+Alt+Shift+Q` pauses/resumes and the bridge rejects operations while paused. Overlay/dialog windows are `WS_EX_TRANSPARENT | NOACTIVATE | TOOLWINDOW`, titled `DSH-CU-*`, filtered from `windows.list`, and rejected as targets. |
@@ -15,11 +16,13 @@ high-privilege capability, not as a security boundary.
 | Clipboard fallback | Off by default. `clipboard=true` compares the buffer before/after and restores it in `finally`; console windows are refused. `input.paste` also restores the previous clipboard in `finally`. |
 | Blind input | `input.*` activates and checks the target window when `hwnd`/`title` is given; `act.click`/`scroll` refuse when the window cannot be foregrounded. |
 | Screenshot path | A caller-supplied screenshot `path` must resolve inside the plugin temp dir; arbitrary file writes outside it are refused. |
+| Stale capture fence | `screenshot`/`ocr` accept `expectedWindow`; when set, capture is refused if the current foreground hwnd differs, so a stale observation cannot be mistaken for the live screen. |
 | Launch policy | Denies interpreter/shell binaries (`cmd`, `powershell`, `pwsh`, `wscript`, `cscript`, `mshta`, `regsvr32`, `rundll32`, `certutil`, `bitsadmin`, `msiexec`, `wmic`, `schtasks`, `reg`), UNC paths and URL schemes other than `http(s)`/`mailto`. |
 | Ambiguity | A selector matching several elements fails with the candidates; `matchIndex` out of range is an error, not a silent clamp. |
 | Bounds | Tree/text/input/OCR limits are clamped; regexes have a 200 ms timeout and a 200-character limit; `ocrScale <= 3` and is further clamped under the Windows OCR 10 000 px limit; capture rectangles are validated against the virtual screen. |
 | Audit | `%TEMP%\dsh-cu\audit.jsonl` receives `windows.*`, `observe.*`, `act.*`, `input.*`, `screenshot`, `ocr`, `launch` and failures (5 MB rotation). Typed text is logged as a character count only. `denied.jsonl` records subagent denials. |
-| Capture hygiene | Screenshot/OCR files older than 2 h are purged, at most 150 PNGs are kept by default; both are configurable (`retentionHours`, `maxFiles`) and enforced at host start as well as on capture. |
+| Capture hygiene | Screenshot/OCR files older than 2 h are purged, at most 150 PNGs are kept by default; both are configurable (`retentionHours`, `maxFiles`) and enforced at host start as well as on capture. The attachment prune is operator-only and fails closed when a zstd session cannot be read. |
+| Diagnostics | `diagnostics` reports PowerShell/UIA/OCR/monitors/temp/indicator/mode only; it does not dump window titles, screenshots or typed text. |
 
 ## What it cannot enforce
 

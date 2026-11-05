@@ -3,27 +3,38 @@
 Управление рабочим столом Windows для DeepSeek Harness одним компактным тулом
 `computer`: окна, UI Automation, ввод, скриншоты, OCR и запуск приложений.
 Постоянный процесс Windows PowerShell 5.1 держит UIA и Win32 тёплыми; каждый
-вызов — JSON-строка в хост. Схема тула ≈ 2.8 КБ (~700 токенов) compact; 40
-actions и 46 параметров.
+вызов — JSON-строка в хост. Схема тула ≈ 3.1 КБ compact; 42 actions и 47
+параметров.
 
-Версия **0.4.2**. Слои: `lib/index.js` (тул, гейты, `act.sequence`, image-block)
-→ `lib/bridge.js` (тёплый powershell.exe, очередь, abort, retention) →
-`lib/scripts/bridge.ps1` (окна, UIA, ввод, скриншоты, OCR, launch) →
-`lib/scripts/CuCommon.ps1` (DPI, Win32 P/Invoke, virtual-desktop mapping,
-ES_PASSWORD). Индикатор и диалог подтверждения — `lib/indicator/`.
+Версия **0.5.0**. Слои: `lib/index.js` (тул, режимы, гейты, `act.sequence`,
+image-block) → `lib/bridge.js` (тёплый powershell.exe, очередь, abort,
+retention) → `lib/scripts/bridge.ps1` (окна, UIA, ввод, скриншоты, OCR, wait,
+diagnostics, launch) → `lib/scripts/CuCommon.ps1` (DPI, Win32 P/Invoke,
+virtual-desktop mapping, ES_PASSWORD). Индикатор и диалог подтверждения —
+`lib/indicator/`.
 
 ## Возможности
 
 | Группа | Действия |
 |---|---|
 | окна | `windows.list/info/activate/minimize/maximize/restore/close/move`; `windows.list` отдаёт DWM-frame и `monitor=N WxH at x,y dpi=96 100%` |
-| наблюдение | `observe.tree/info/getvalue/gettext` — компактный текст `i=12 Button "Save" #save 100,200 80x32 [invoke]` |
+| наблюдение | `observe.tree/info/getvalue/gettext` — компактный текст `i=12 Button "Save" #save 100,200 80x32 [invoke]`; `observe.wait` — ждать hwnd/title/regex/element до 60 с |
 | действия | `act.invoke/click/doubleclick/rightclick/setvalue/toggle/select/expand/collapse/focus/scroll` |
 | пакет | `act.sequence` — 1–8 действий за один вызов, стоп на первой ошибке, отчёт по шагам |
 | ввод | `input.type/key/hotkey/paste/move/click/doubleclick/rightclick/middleclick/drag/scroll/wait/cursor` |
-| экран | `screenshot` (PNG в результате; `capture: auto/screen/print`, DWM-кроп, детект пустого кадра, `sourceX/sourceY/scale`) |
-| текст с экрана | `ocr` (Windows OCR, ru/en, боксы `[x,y,wxh]`, clamp под лимит 10 000 px) |
+| экран | `screenshot` (PNG в результате; `capture: auto/screen/print`, DWM-кроп, детект пустого кадра, `sourceX/sourceY/scale`, `expectedWindow`-забор) |
+| текст с экрана | `ocr` (Windows OCR, ru/en, боксы `[x,y,wxh]`, clamp под лимит 10 000 px, `expectedWindow`) |
 | запуск | `launch` (приложение/файл/URL; стабильный hwnd; deny-list интерпретаторов, UNC, чужих схем) |
+| диагностика | `diagnostics` — PowerShell/UIA/OCR/мониторы/temp/indicator/mode |
+
+## Режимы
+
+`mode` — только конфиг, модель не может его переключить через аргументы:
+
+- `auto` (по умолчанию) — все действия;
+- `readonly` — только наблюдение (`windows.list/info`, `observe.*`, `screenshot`,
+  `ocr`, `diagnostics`, cursor/wait); клики, ввод и запуск отклоняются;
+- `disabled` — все вызовы отклоняются, включая диагностику.
 
 ## Индикатор и подтверждение
 
